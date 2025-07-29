@@ -6,9 +6,8 @@
             <p class="text-xl text-muted-foreground mb-6">
                 {{ $t('notFound.title') }}
             </p>
-            <Button asChild class="gap-2 px-6 py-3 text-base">
+            <Button size="lg" asChild>
                 <router-link to="/">
-                    <HomeIcon :size="16" />
                     {{ $t('notFound.button') }}
                 </router-link>
             </Button>
@@ -17,13 +16,12 @@
 </template>
 
 <script lang="ts" setup>
-import Button from '@/components/ui/button/Button.vue'
-import { HomeIcon } from 'lucide-vue-next'
+import { Button } from '@/components/ui/button'
 
 
 definePage({
     meta: {
-        title: 'about.title',
+        title: 'Not Found',
     },
 })
 

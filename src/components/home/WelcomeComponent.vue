@@ -2,14 +2,10 @@
 import { Button } from '@/components/ui/button';
 import FeatureItem from '@/components/home/FeatureItem.vue';
 import { useI18n } from 'vue-i18n';
-import { computed } from 'vue';
-interface Feature {
-    title: string;
-    description: string;
-}
+
 
 const { tm } = useI18n();
-const features = computed<Feature[]>(() => tm('home.landing.features') as Feature[]);
+
 </script>
 
 <template>
@@ -27,13 +23,14 @@ const features = computed<Feature[]>(() => tm('home.landing.features') as Featur
             <RouterLink to="/about">
                 <Button>{{ $t('home.landing.buttons.learnMore') }}</Button>
             </RouterLink>
-            <Button as="a" href="https://github.com/Eg0r0k/vue-template" target="_blank" rel="noopener noreferrer" variant="outline">
+            <Button as="a" href="https://github.com/Eg0r0k/vue-template" target="_blank" rel="noopener noreferrer"
+                variant="outline">
                 {{ $t('home.landing.buttons.viewGitHub') }}
             </Button>
         </div>
 
         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12 text-left w-full">
-            <FeatureItem v-for="(feature, index) in features" :key="index" :title="feature.title">
+            <FeatureItem v-for="feature in tm('home.landing.features')" :key="feature" :title="feature.title">
                 {{ feature.description }}
             </FeatureItem>
         </ul>
