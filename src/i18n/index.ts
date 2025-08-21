@@ -1,6 +1,6 @@
 import { createI18n } from 'vue-i18n'
 import { type SupportedLocale, messages } from './messages'
-import { useNavigatorLanguage, useStorage } from '@vueuse/core'
+import { useStorage } from '@vueuse/core'
 import { isSupportedLocale, setHtmlLangAttribute } from '@/utils/localeUtils'
 
 type MessageSchema = (typeof messages)['en']
@@ -13,10 +13,12 @@ export const getSavedLocale = (): SupportedLocale | null => {
 }
 
 export const getBrowserLocale = (): SupportedLocale | null => {
-  const { language } = useNavigatorLanguage()
-  const browserLocale = language.value?.split('-')[0]
-  return browserLocale && isSupportedLocale(browserLocale) ? browserLocale : null
+  const browserLocale = navigator.language?.split('-')[0]
+  return browserLocale && isSupportedLocale(browserLocale)
+    ? (browserLocale as SupportedLocale)
+    : null
 }
+
 export const getInitialLocale = (): SupportedLocale => {
   const savedLocale = getSavedLocale()
   if (savedLocale) {
@@ -29,7 +31,6 @@ export const getInitialLocale = (): SupportedLocale => {
     setHtmlLangAttribute(browserLocale)
     return browserLocale
   }
-
   setHtmlLangAttribute(DEFAULT_LOCALE)
   return DEFAULT_LOCALE
 }
